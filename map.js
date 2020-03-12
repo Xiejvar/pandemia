@@ -1,15 +1,23 @@
-const OPEN_STREET_MAPS = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
-const madrizCoordinates = L.latLng(40.4233873,-3.6927541,15)
+//Esto es el mapa basico
+const OPEN_STREET_MAPS = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const OTRO_MAPA = 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png';
 
-const zoom = 14
+var grayscale = L.tileLayer(OPEN_STREET_MAPS, {id: 'mapa', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution}),
+    streets   = L.tileLayer(OTRO_MAPA, {id: 'mapa', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution});
 
-const map = L.map('map')
+var bridgee = L.marker([40.421558, -3.692666]).bindPopup('TheBridge'),
+        ironhackk =L.marker([40.392592, -3.698315]).bindPopup('Ironhack'), 
+        adalabb = L.marker([40.413272, -3.718223]).bindPopup('Adalab'), 
+        keepcodingg = L.marker([40.404366, -3.689889]).bindPopup('Keepcoding'), 
+        neolandd = L.marker([40.422332, -3.714069]).bindPopup('Neoland'), 
+        upgradeHubb = L.marker([40.458950, -3.694684]).bindPopup('UpgradeHub');
+        
+const madrizCoordinates = L.latLng(40.4233873,-3.6927541,15);
 
-map.setView(madrizCoordinates, zoom)
+const zoom = 14;
 
-L.tileLayer(OPEN_STREET_MAPS).addTo(map)
-
+const map = L.map('map');
 
 const theBridge = L.circle([40.421558, -3.692666], {
     color: 'red',
@@ -53,7 +61,61 @@ const keepcoding = L.circle([40.404366, -3.689889], {
     radius: 150
 }).addTo(map);
 
-const zonacero = L.polygon([
+//Creacion de iconos
+const bridgeIcon = L.icon({
+    iconUrl: 'theBridge.jpg',
+    iconSize:     [20, 20], 
+    iconAnchor:   [10, 10], 
+    popupAnchor:  [-3, -76] 
+});
+
+const ironHackIcon = L.icon({
+    iconUrl: 'ironHack.jpg',
+    iconSize:     [20, 20], 
+    iconAnchor:   [10, 10], 
+    popupAnchor:  [-3, -76] 
+});
+
+const adalabIcon = L.icon({
+    iconUrl: 'adalab.jpg',
+    iconSize:     [20, 20], 
+    iconAnchor:   [10, 10], 
+    popupAnchor:  [-3, -76] 
+});
+
+const keepcodingIcon = L.icon({
+    iconUrl: 'keepcoding.png',
+    iconSize:     [20, 20], 
+    iconAnchor:   [10, 10], 
+    popupAnchor:  [-3, -76] 
+});
+
+const neolandIcon = L.icon({
+    iconUrl: 'neoland.png',
+    iconSize:     [20, 20], 
+    iconAnchor:   [10, 10], 
+    popupAnchor:  [-3, -76] 
+});
+
+const upgradeHubIcon = L.icon({
+    iconUrl: 'upgrade.jpg',
+    iconSize:     [20, 20], 
+    iconAnchor:   [10, 10], 
+    popupAnchor:  [-3, -76] 
+});
+
+
+
+
+map.setView(madrizCoordinates, zoom);
+
+L.tileLayer(OPEN_STREET_MAPS).addTo(map);
+
+
+
+
+
+const area = L.polygon([
     [40.422332, -3.714069],
     [40.458950, -3.694684],
     [40.413272, -3.718223],
@@ -62,34 +124,26 @@ const zonacero = L.polygon([
     [40.421558, -3.692666]
 ]).addTo(map);
 
-const theBridgepop = L.popup()
-    .setLatLng([40.421558, -3.692666])
-    .setContent("TheBridge")
-    .openOn(map);
+/*theBridge.bindPopup('TheBridge');
+neoland.bindPopup('Neoland');
+upgradeHub.bindPopup('UpgradeHub');
+ironHack.bindPopup('IronHack');
+adalab.bindPopup('Adalab');
+keepcoding.bindPopup('Keepcoding');*/
 
-const neolandpop = L.popup()
-    .setLatLng([40.422332, -3.714069])
-    .setContent("NEOland")
-    .openOn(map);
 
-const upgradeHubpop = L.popup()
-    .setLatLng([40.458950, -3.694684])
-    .setContent("UpgradeHub")
-    .openOn(map);
 
-const adalabpop = L.popup()
-    .setLatLng([40.413272, -3.718223])
-    .setContent("Adalab")
-    .openOn(map);
 
-const ironHackpop = L.popup()
-    .setLatLng([40.392592, -3.698315])
-    .setContent("IronHack")
-    .openOn(map);
 
-const keepcodingpop = L.popup()
-    .setLatLng([40.404366, -3.689889])
-    .setContent("Keepcoding")
-    .openOn(map);*/
+const bootCamps = L.marker([40.421558, -3.692666], {icon: bridgeIcon}).addTo(map);
+L.marker([40.392592, -3.698315], {icon: ironHackIcon}).addTo(map);
+L.marker([40.413272, -3.718223], {icon: adalabIcon}).addTo(map);
+L.marker([40.404366, -3.689889], {icon: keepcodingIcon}).addTo(map);
+L.marker([40.422332, -3.714069], {icon: neolandIcon}).addTo(map);
+L.marker([40.458950, -3.694684], {icon: upgradeHubIcon}).addTo(map);
 
-    
+
+
+
+L.layerGroup([bridgee,ironhackk,adalabb,keepcodingg,neolandd,upgradeHubb]);   
+
